@@ -1,19 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import DateHead from './components/DateHead';
 import Empty from './components/Empty';
 import AppTodo from './components/AddTodo';
 import TodoList from './components/TodoList';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import todosStorage from './storages/todosStorage';
+import {loadAdmob} from './components/Admob';
 
 const App = () => {
   const today: Date = new Date();
 
-  const [todos, setTodos] = useState([
-    {id: 1, text: '작업환경 설정', done: true},
-    {id: 2, text: '리액트 네이티브 기초 공부', done: false},
-    {id: 3, text: '투두리스트 만들어보기', done: false},
-  ]);
+  const [todos, setTodos] = useState(new Array());
+
+  useEffect(() => {
+    todosStorage.get().then(setTodos).catch(console.error);
+
+    loadAdmob();
+  }, []);
+
+  useEffect(() => {
+    todosStorage.set(todos).catch(console.error);
+  }, [todos]);
 
   const onInsert = (text: String) => {
     const nextId =

@@ -1,4 +1,8 @@
 {
   "name": "TodoApp",
-  "displayName": "TodoApp"
+  "displayName": "TodoApp",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8631957304793435~6267014851",
+    "ios_app_id": "ca-app-pub-8631957304793435~6267014851"
+  }
 }
